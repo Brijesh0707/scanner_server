@@ -22,12 +22,13 @@ router.post("/attendance", async (req, res) => {
 
 router.get("/userdata/:id",async(req,res)=>{
     const {id} = req.params
+
+    console.log(id)
     try{
         const StudentDetail = await Student.findOne({_id:id}).select('-password')
         if(!StudentDetail){
             return res.status(400).json({message:"user not found"})
         }
-
         return res.status(200).json(StudentDetail)
  
     }catch(err){ res.status(500).json({ message: "Internal server error" });}

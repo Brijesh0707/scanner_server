@@ -31,15 +31,11 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-
     const { emailAddress, password } = req.body;
-
-
     const student = await Student.findOne({ emailAddress });
     if (!student) {
       return res.status(401).json({ message: "Invalid email address or password" });
     }
-
     const isPasswordValid = await bcrypt.compare(password, student.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid email address or password" });
